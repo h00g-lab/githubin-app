@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChartType } from 'chart.js';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 
 @Component({
@@ -8,11 +8,18 @@ import { DashboardService } from 'src/app/core/services/dashboard.service';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
-    public doughnutChartData: any = {
-        labels: ['Média de complexidade ciclomática', 'Média de linhas de código', 'Média de funções', 'Total de linhas de código', 'Total de warnings'],
-        datasets: [],
-    }
+    public multi: DefaultObject[] = [];
+    public view: [number, number] = [1180, 750];
+    public colorScheme: Color = {
+        name: '',
+        selectable: false,
+        group: ScaleType.Linear,
+        domain: ['#428AC9', '#FB7C06', '#6C6D70', '#FBCF06', '#DCDCDC', '#483D8B', '#0000FF', '#4682B4', '#00FFFF', '#7FFFD4', '#5F9EA0', '#00FA9A', '#006400', '#BDB76B']
+    };
+    public barChartcustomColors = [];
+    public repository: string = '';
 
     constructor(
         private route: ActivatedRoute,
@@ -20,8 +27,9 @@ export class DashboardComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params: any) => {
             this.getData(params);
+            this.repository = params.repository;
         });
     }
 
@@ -30,16 +38,16 @@ export class DashboardComponent implements OnInit {
             .get(params.user, params.repository)
             .pipe()
             .subscribe((val: any) => {
-                this.doughnutChartData.datasets.push({ data: [parseFloat(val.totals.avg_ccn)]});
-
-                // this.doughnutChartData.datasets[0].data.push(parseFloat(val.totals.avg_ccn));
-                // this.doughnutChartData.datasets[0].data.push(parseFloat(val.totals.avg_nloc));
-                // this.doughnutChartData.datasets[0].data.push(parseFloat(val.totals.avg_token));
-                // this.doughnutChartData.datasets[0].data.push(parseFloat(val.totals.function_cnt));
-                // this.doughnutChartData.datasets[0].data.push(parseFloat(val.totals.nloc));
-                
-                console.log(this.doughnutChartData.datasets);
+                this.multi = val.averages.map((value: any) => ({
+                    name: value.file.split('/').at(-1),
+                    value: Number(value.avg_ccn)
+                }));
             })
-    }
+}
 
+}
+
+interface DefaultObject {
+    name: string,
+    value: number
 }

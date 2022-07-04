@@ -13,7 +13,7 @@ export class DashboardService {
 		private http: HttpClient
 	) { }
 	public get(username: string, repository: string): Observable<any> {
-		let url = `${this.apiUrl}/${username}/${repository}`;
+		let url = `${this.apiUrl}${username}/${repository}`;
 		return this.http.get<any>(url);
 	}
 }

@@ -1,4 +1,7 @@
-<div class="flex justify-center items-center">
-    <canvas baseChart [data]="doughnutChartData" type="pie">
-    </canvas>
+<div class="grid grid-cols-12 justify-items-center">
+    <div class="col-span-12 text-center">
+        <span class="font-mono text-lg">Análise da Complexidade Ciclomática - {{ repository }}</span>
+        <ngx-charts-pie-chart [view]="view" [results]="multi" [scheme]="colorScheme" [legendTitle]="'Análise completa'">
+        </ngx-charts-pie-chart> 
+    </div>
 </div>
