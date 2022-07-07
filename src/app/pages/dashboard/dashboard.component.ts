@@ -13,7 +13,7 @@ import { finalize } from 'rxjs/operators';
 
 export class DashboardComponent implements OnInit {
     public multi: DefaultObject[] = [];
-    public view: [number, number] = [1180, 750];
+    public view: [number, number] = [700, 750];
     public colorScheme: Color = {
         name: '',
         selectable: false,
@@ -23,6 +23,9 @@ export class DashboardComponent implements OnInit {
     public barChartcustomColors = [];
     public repository: string = '';
     public showLoader: boolean = false;
+    public functions: any = [];
+    public isDetails: boolean = false;
+    public averages: any = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -49,8 +52,27 @@ export class DashboardComponent implements OnInit {
                     name: value.file.split('/').at(-1),
                     value: Number(value.avg_ccn)
                 }));
+                this.functions = val.functions;
+                this.averages = val.averages;
             })
-}
+    }
+
+    public onSelect(event: any) {
+        let functionByFile = this.functions.filter((f: any) => event.name == f.file.split('/').at(-1));
+        this.isDetails = true;
+        this.multi = functionByFile.map((value: any) => ({
+            name: value.name,
+            value: Number(value.ccn)
+        }));
+    }
+
+    public onBack() {
+        this.isDetails = false;
+        this.multi = this.averages.map((value: any) => ({
+            name: value.file.split('/').at(-1),
+            value: Number(value.avg_ccn)
+        }));
+    }
 
 }
 

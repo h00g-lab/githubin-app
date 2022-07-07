@@ -1,9 +1,14 @@
 <navbar-component></navbar-component>
 <div class="grid grid-cols-12 justify-items-center">
-    <div class="col-span-12 text-center">
-        <span class="font-mono text-lg">Análise da Complexidade Ciclomática - {{ repository }}</span>
-        <ngx-charts-pie-chart [view]="view" [results]="multi" [scheme]="colorScheme" [legendTitle]="'Análise completa'">
-        </ngx-charts-pie-chart> 
+    <div class="col-span-12 text-center grid grid-cols-12">
+        <div class="col-span-12">
+            <span class="font-mono text-lg">Análise da Complexidade Ciclomática - {{ repository }}</span>
+        </div>
+        <div class="col-span-12 inline-flex">
+            <span class="font-mono text-lg cursor-pointer" *ngIf="isDetails" (click)="onBack()">X</span>
+            <ngx-charts-pie-chart [view]="view" [results]="multi" [scheme]="colorScheme" [legendTitle]="'Análise completa'" (select)="onSelect($event)">
+            </ngx-charts-pie-chart> 
+        </div>
     </div>
 </div>
 
