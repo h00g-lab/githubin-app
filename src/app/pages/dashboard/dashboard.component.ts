@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { finalize } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit {
     };
     public barChartcustomColors = [];
     public repository: string = '';
+    public showLoader: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -34,9 +36,13 @@ export class DashboardComponent implements OnInit {
     }
 
     private getData(params: any) {
+        this.showLoader = true;
+
         this.dashboardService
             .get(params.user, params.repository)
-            .pipe()
+            .pipe(
+                finalize(() => this.showLoader = false)
+            )
             .subscribe((val: any) => {
                 this.multi = val.averages.map((value: any) => ({
                     name: value.file.split('/').at(-1),

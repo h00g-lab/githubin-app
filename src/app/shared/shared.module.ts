@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingComponentComponent } from './components/loading-component/loading-component.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponentComponent
+    NavbarComponentComponent,
+    LoadingComponentComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     ReactiveFormsModule,
     NavbarComponentComponent,
-    FormsModule
+    FormsModule,
+    LoadingComponentComponent
   ]
 })
 export class SharedModule { }
