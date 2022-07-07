@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://githubin.herokuapp.com/'
+  apiUrl: 'https://githubin.herokuapp.com/'
 };
 
 /*
