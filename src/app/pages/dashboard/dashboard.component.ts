@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
     }
 
     public onSelect(event: any) {
+        if (this.isDetails) return;
         let functionByFile = this.functions.filter((f: any) => event.name == f.file.split('/').at(-1));
         this.isDetails = true;
         this.multi = functionByFile.map((value: any) => ({
