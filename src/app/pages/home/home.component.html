@@ -1,0 +1,26 @@
+<div class="bg-primary bg-no-repeat bg-cover overflow-x-hidden">
+    <div class="grid grid-cols-1 mx-auto min-h-screen items-center justify-center md:w-[50vw] lg:w-[35vw] p-8 lg:p-0">
+        <form class="border-0 px-10 lg:px-14 pb-10 pt-8 shadow-base bg-white rounded-md" autocomplete="off"
+            [formGroup]="formGroup">
+            <div class="self-center text-center">
+                <div>
+                    <label for="user" class="font-semibold text-xl text-primary">Usuário</label>
+                </div>
+                <div class="mb-4">
+                    <input type="text" class="input" id="user" formControlName="user" required>
+                </div>
+
+                <div>
+                    <label for="repository" class="font-semibold text-xl text-primary">Repositório</label>
+                </div>
+                <div class="mb-4">
+                    <input type="text" class="input" id="repository" formControlName="repository" required>
+                </div>
+
+                <button class="bg-primary text-white rounded-md p-2 w-3/4 h-12 text-xl my-4" (click)="onAnalyze()">
+                    Analisar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
