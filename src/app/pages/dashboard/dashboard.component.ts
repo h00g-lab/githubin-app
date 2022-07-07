@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { finalize } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
+import { finalize } from 'rxjs/operators';
+
 
 @Component({
     selector: 'app-dashboard',
